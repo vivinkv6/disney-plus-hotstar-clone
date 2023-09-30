@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   image: {
-    height: 55,
-    width: 120,
+    height: 50,
+    width: 100,
   },
   subNavContainer1: {
     width: "50%",
