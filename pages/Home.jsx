@@ -14,9 +14,9 @@ import Item from "../components/Item";
 import { useState } from "react";
 import Genres from "../components/Genres";
 
-export default function Home() {
+export default function Home({id,setId,type,setType}) {
 
-  const [type,setType]=useState('movie')
+
   const tvDiscovery=['popular',"top_rated","on_the_air","airing_today"];
 
  let discovery=(type=='movie') ? "upcoming": tvDiscovery[Math.floor(Math.random()*tvDiscovery.length)]
@@ -39,27 +39,27 @@ export default function Home() {
           <Genres type={type}/>
         </View>
         <View>
-          <Item discovery="popular" type={type} />
+          <Item discovery="popular" type={type} setId={setId}/>
         </View>
         <View>
-          <Item discovery="top_rated" type={type}/>
+          <Item discovery="top_rated" type={type} setId={setId}/>
         </View>
         {type == 'movie' ?
         <>
         <View>
-          <Item discovery="now_playing" type={type} />
+          <Item discovery="now_playing" type={type} setId={setId}/>
         </View>
         <View>
-          <Item discovery="upcoming" type={type}/>
+          <Item discovery="upcoming" type={type} setId={setId}/>
         </View>
         </>
         :
         <>
         <View>
-          <Item discovery="on_the_air" type={type} />
+          <Item discovery="on_the_air" type={type} setId={setId}/>
         </View>
         <View>
-          <Item discovery="airing_today" type={type}/>
+          <Item discovery="airing_today" type={type} setId={setId}/>
         </View>
         </>
       }

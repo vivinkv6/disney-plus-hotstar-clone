@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
 import Card from "./Card";
 
-function Item({ discovery,type }) {
+function Item({ discovery,type,setId}) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function Item({ discovery,type }) {
         showsHorizontalScrollIndicator={true}
       >
         {cards.map((value) => {
-          return <Card value={value} />;
+          return <Card value={value} setId={setId}/>;
         })}
       </ScrollView>
     </>

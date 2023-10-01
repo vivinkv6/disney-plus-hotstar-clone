@@ -144,17 +144,17 @@ const styles = StyleSheet.create({
     color: "white",
   },
   button: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
     paddingLeft:10
   },
   buttonContainer: {
     flexDirection: "row",
     width: 100,
-    paddingHorizontal: 5,
+    paddingHorizontal:5,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     borderRadius: 5,
   },
 });
