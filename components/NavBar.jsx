@@ -1,14 +1,16 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 const logo = require("../assets/logo.png");
-function NavBar() {
+function NavBar({setSearchable}) {
   return (
     <View style={styles.container}>
       <View style={styles.subNavContainer1}>
         <FontAwesome name="navicon" size={40} style={styles.icon1} />
         <Image source={logo} style={styles.image} alt="Value Not Found" />
       </View>
+      <Pressable onPress={()=>setSearchable(true)}>
       <FontAwesome name="search" size={30} style={styles.icon2} />
+      </Pressable>
     </View>
   );
 }

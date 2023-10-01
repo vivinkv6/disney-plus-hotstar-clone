@@ -8,7 +8,7 @@ import {
 import { useState, useEffect } from "react";
 
 import { FontAwesome } from "@expo/vector-icons";
-function Banner({ type, discovery }) {
+function Banner({ type, discovery, setId }) {
   console.log(type);
   console.log(discovery);
   const [banner, setBanner] = useState({
@@ -61,6 +61,7 @@ function Banner({ type, discovery }) {
       banner?.title == undefined &&
       banner?.poster_path == undefined ? (
         <>
+         <Pressable onPress={()=>setId(968051)}>
           <ImageBackground
             key={968051}
             source={{
@@ -68,21 +69,23 @@ function Banner({ type, discovery }) {
             }}
             style={styles.image}
           ></ImageBackground>
+          </Pressable>
           <View style={styles.detailContainer}>
             <Text style={styles.title}>The Nun II</Text>
-            <Pressable style={styles.buttonContainer}>
+            {/* <Pressable style={styles.buttonContainer}>
               <FontAwesome
                 name="youtube-play"
                 size={30}
                 style={{ color: "red", alignItems: "center" }}
               />
               <Text style={styles.button}>Trailer</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
         </>
       ) : (
         <>
           {banner.backdrop_path ? (
+            <Pressable onPress={()=>setId(banner?.id)}>
             <ImageBackground
               key={banner?.id}
               source={{
@@ -90,7 +93,9 @@ function Banner({ type, discovery }) {
               }}
               style={styles.image}
             ></ImageBackground>
+            </Pressable>
           ) : (
+            <Pressable onPress={()=>setId(banner?.id)}>
             <ImageBackground
               key={banner?.id}
               source={{
@@ -98,6 +103,7 @@ function Banner({ type, discovery }) {
               }}
               style={styles.image}
             ></ImageBackground>
+            </Pressable>
           )}
           <View style={styles.detailContainer}>
             {!banner.original_title ? (
@@ -106,14 +112,14 @@ function Banner({ type, discovery }) {
               <Text style={styles.title}>{banner?.original_title}</Text>
             )}
 
-            <Pressable style={styles.buttonContainer}>
+            {/* <Pressable style={styles.buttonContainer}>
               <FontAwesome
                 name="youtube-play"
                 size={30}
                 style={{ color: "red", alignItems: "center" }}
               />
               <Text style={styles.button}>Trailer</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
         </>
       )}
@@ -129,19 +135,20 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: "100%",
-    opacity: 0.4,
+    opacity: 0.5,
   },
   detailContainer: {
     position: "absolute",
-    bottom: 50,
+    bottom: 80,
     left: 20,
     flexDirection: "column",
     justifyContent: "space-between",
   },
   title: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     color: "white",
+    width:150
   },
   button: {
     fontSize: 15,
