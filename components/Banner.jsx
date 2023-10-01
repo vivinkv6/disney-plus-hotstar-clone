@@ -7,19 +7,18 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 
-import { FontAwesome } from "@expo/vector-icons";
 function Banner({ type, discovery, setId }) {
-  console.log(type);
-  console.log(discovery);
   const [banner, setBanner] = useState({
     id: 968051,
     title: "The Nun II",
     backdrop_path: "/53z2fXEKfnNg2uSOPss2unPBGX1.jpg",
     poster_path: "/c9kVD7W8CT5xe4O3hQ7bFWwk68U.jpg",
     original_title: "The Nun II",
+    release_date: "2023-09-19",
   });
   const [cards, setCards] = useState([]);
   const [card, setCard] = useState({});
+
   useEffect(() => {
     const fetchCard = async () => {
       const result = await fetch(
@@ -29,14 +28,15 @@ function Banner({ type, discovery, setId }) {
         .then((data) => {
           // console.log(Math.floor(Math.random()*data.results.length));
           //Math.floor(Math.random()*data.results.length)
-          setCards(data.results);
-          setCard(cards[Math.floor(Math.random() * cards.length)]);
+          setCards(data?.results);
+          setCard(cards[Math.floor(Math.random() * cards?.length)]);
           setBanner({
             id: card?.id,
             title: card?.title,
             backdrop_path: card?.backdrop_path,
             poster_path: card?.poster_path,
-            original_title:card?.original_title
+            original_title: card?.original_title,
+            release_date: card?.release_date,
           });
         })
         .catch((err) => {
@@ -44,7 +44,7 @@ function Banner({ type, discovery, setId }) {
         });
     };
     fetchCard();
-  }, [discovery, type]);
+  }, [type]);
 
   // const poster={banner ? `https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/07/John-Wick-Chapter-4-Poster.jpg` : banner}
 
@@ -59,20 +59,25 @@ function Banner({ type, discovery, setId }) {
       banner?.backdrop_path == undefined &&
       banner?.original_title == undefined &&
       banner?.title == undefined &&
-      banner?.poster_path == undefined ? (
+      banner?.poster_path == undefined &&
+      banner?.release_date == undefined ? (
         <>
-         <Pressable onPress={()=>setId(968051)}>
-          <ImageBackground
-            key={968051}
-            source={{
-              uri: `https://image.tmdb.org/t/p/w500/53z2fXEKfnNg2uSOPss2unPBGX1.jpg`,
-            }}
-            style={styles.image}
-          ></ImageBackground>
+          <Pressable onPress={() => setId(968051)}>
+            <ImageBackground
+              key={968051}
+              source={{
+                uri: `https://image.tmdb.org/t/p/w500/53z2fXEKfnNg2uSOPss2unPBGX1.jpg`,
+              }}
+              style={styles.image}
+            ></ImageBackground>
           </Pressable>
           <View style={styles.detailContainer}>
             <Text style={styles.title}>The Nun II</Text>
-            {/* <Pressable style={styles.buttonContainer}>
+
+            <Text style={{ color: "white" }}>2023-09-07</Text>
+          </View>
+
+          {/* <Pressable style={styles.buttonContainer}>
               <FontAwesome
                 name="youtube-play"
                 size={30}
@@ -80,29 +85,28 @@ function Banner({ type, discovery, setId }) {
               />
               <Text style={styles.button}>Trailer</Text>
             </Pressable> */}
-          </View>
         </>
       ) : (
         <>
           {banner.backdrop_path ? (
-            <Pressable onPress={()=>setId(banner?.id)}>
-            <ImageBackground
-              key={banner?.id}
-              source={{
-                uri: `https://image.tmdb.org/t/p/w500${banner.backdrop_path}`,
-              }}
-              style={styles.image}
-            ></ImageBackground>
+            <Pressable onPress={() => setId(banner?.id)}>
+              <ImageBackground
+                key={banner?.id}
+                source={{
+                  uri: `https://image.tmdb.org/t/p/w500${banner.backdrop_path}`,
+                }}
+                style={styles.image}
+              ></ImageBackground>
             </Pressable>
           ) : (
-            <Pressable onPress={()=>setId(banner?.id)}>
-            <ImageBackground
-              key={banner?.id}
-              source={{
-                uri: `https://image.tmdb.org/t/p/w500${banner?.poster_path}`,
-              }}
-              style={styles.image}
-            ></ImageBackground>
+            <Pressable onPress={() => setId(banner?.id)}>
+              <ImageBackground
+                key={banner?.id}
+                source={{
+                  uri: `https://image.tmdb.org/t/p/w500${banner?.poster_path}`,
+                }}
+                style={styles.image}
+              ></ImageBackground>
             </Pressable>
           )}
           <View style={styles.detailContainer}>
@@ -111,16 +115,16 @@ function Banner({ type, discovery, setId }) {
             ) : (
               <Text style={styles.title}>{banner?.original_title}</Text>
             )}
-
-            {/* <Pressable style={styles.buttonContainer}>
-              <FontAwesome
+          </View>
+          <Pressable style={styles.buttonContainer}>
+            {/* <FontAwesome
                 name="youtube-play"
                 size={30}
                 style={{ color: "red", alignItems: "center" }}
-              />
-              <Text style={styles.button}>Trailer</Text>
-            </Pressable> */}
-          </View>
+              /> */}
+
+            <Text style={styles.button}>{banner?.release_date}</Text>
+          </Pressable>
         </>
       )}
     </View>
@@ -139,7 +143,7 @@ const styles = StyleSheet.create({
   },
   detailContainer: {
     position: "absolute",
-    bottom: 80,
+    bottom: 60,
     left: 20,
     flexDirection: "column",
     justifyContent: "space-between",
@@ -148,21 +152,25 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "white",
-    width:150
+    width: 150,
   },
   button: {
     fontSize: 15,
-    fontWeight: "bold",
-    paddingLeft:10
+    fontWeight: "500",
+    paddingLeft: 10,
+    color: "white",
   },
   buttonContainer: {
     flexDirection: "row",
-    width: 100,
-    paddingHorizontal:5,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "space-around",
-    borderRadius: 5,
+    position: "absolute",
+    bottom: 30,
+    left: 10,
+  },
+  genresContainer: {
+    flexDirection: "row",
+  },
+  genres: {
+    color: "white",
   },
 });
 

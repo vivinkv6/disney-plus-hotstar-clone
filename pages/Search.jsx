@@ -51,11 +51,11 @@ function Search({ query, setQuery, setSearchable, setId }) {
         onChangeText={setQuery}
       />
 
-      {/* {query?.length == 0 ? <></> : */}
+      {query?.length == 0 ? <Text style={{color:'white',textAlign:'center',fontSize:20}}>Search Latest Movies</Text> :
 
       <Suggestion suggest={suggest} setId={setId} />
 
-      {/* } */}
+      }
     </View>
   );
 }

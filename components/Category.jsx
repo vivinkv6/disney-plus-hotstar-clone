@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   onActive: {
-    backgroundColor: "#3c3b3d",
-    paddingHorizontal:100,
-    borderRadius:10,
-    paddingVertical:10
+    backgroundColor: "#151330",
+    paddingHorizontal: 100,
+    borderRadius: 10,
+    paddingVertical: 10,
   },
 });
 

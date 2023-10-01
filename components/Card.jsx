@@ -2,14 +2,14 @@ import { Text, ScrollView, View, Image, StyleSheet, Pressable } from "react-nati
 
 function Card({ value, setId }) {
 
-    const poster=(!value.poster_path)?value.backdrop_path:value.poster_path;
+    const poster=(!value?.poster_path)?value?.backdrop_path:value?.poster_path;
 
   return (
     <Pressable onPress={()=>{
       console.log(value.id);
-      setId(value.id)}}>
+      setId(value?.id)}}>
     <Image
-      key={value.id}
+      key={value?.id}
       source={{ uri: `https://image.tmdb.org/t/p/w500${poster}` }}
       style={styles.image}
     />

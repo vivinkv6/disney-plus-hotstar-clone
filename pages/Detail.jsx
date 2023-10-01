@@ -14,13 +14,12 @@ import {
 
 
 
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { MaterialIcons} from "@expo/vector-icons";
 import Card from "../components/Card";
 function Detail({ id, type, setId }) {
-  const [list, setList] = useState({});
+  const [list, setList] = useState(undefined | {});
   const [cast, setCast] = useState([]);
   const [trailer, setTrailer] = useState("");
-  const [poster,setPoster]=useState("");
   const [recommented, setRecommented] = useState([]);
 
   useEffect(() => {
@@ -31,6 +30,7 @@ function Detail({ id, type, setId }) {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setList(data);
         })
         .catch((err) => {
@@ -72,7 +72,7 @@ function Detail({ id, type, setId }) {
       )
         .then((res) => res.json())
         .then((data) => {
-          setRecommented(data.results);
+          setRecommented(data?.results);
         })
         .catch((err) => {
           console.log(err);
@@ -89,17 +89,17 @@ function Detail({ id, type, setId }) {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>
         <View style={styles.bannerContainer}>
-          {list.backdrop_path ? (
+          {list?.backdrop_path ? (
             <ImageBackground
               source={{
-                uri: `https://image.tmdb.org/t/p/w500${list.backdrop_path}`,
+                uri: `https://image.tmdb.org/t/p/w500${list?.backdrop_path}`,
               }}
               style={styles.Image}
             />
           ) : (
             <ImageBackground
               source={{
-                uri: `https://image.tmdb.org/t/p/w500${list.poster_path}`,
+                uri: `https://image.tmdb.org/t/p/w500${list?.poster_path}`,
               }}
               style={styles.Image}
             />
@@ -119,7 +119,7 @@ function Detail({ id, type, setId }) {
           </View>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{list?.title}</Text>
-            <AntDesign name="heart" size={30} style={styles.heart} />
+            {/* <AntDesign name="heart" size={30} style={styles.heart} /> */}
           </View>
           <View style={styles.genresContainer}>
             {list?.genres?.map((value) => {
@@ -144,14 +144,14 @@ function Detail({ id, type, setId }) {
               <View style={styles.castContainer}>
                 {cast?.map((value) => {
                   return (
-                    <View horizontal={true} key={value.id} style={styles.cast}>
+                    <View horizontal={true} key={value?.id} style={styles.cast}>
                       <Image
                         source={{
-                          uri: `https://image.tmdb.org/t/p/w500${value.profile_path}`,
+                          uri: `https://image.tmdb.org/t/p/w500${value?.profile_path}`,
                         }}
                         style={styles.profile}
                       />
-                      <Text style={styles.castName}>{value.name}</Text>
+                      <Text style={styles.castName}>{value?.name}</Text>
                     </View>
                   );
                 })}
@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     marginLeft: 10,
+    marginTop:15
   },
   descriptionTitle: {
     color: "#0368ff",
